@@ -19,8 +19,6 @@ List<DynamicTabContent> myList = new List();
     super.initState();
 
     myList.add(new DynamicTabContent(Icons.search, "Favorited"));
-    // myList.add(new DynamicTabContent.name(Icons.send, "Favorited"));
-    // myList.add(new DynamicTabContent.name(Icons.local_pizza, "local pizza"));
 
     _cardController = new TabController(vsync: this, length: myList.length);
     _tabPageSelector = new TabPageSelector(controller: _cardController,);
