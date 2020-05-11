@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:flut1/screen/search_screen.dart';
-// import 'package:flut1/screen/statistic_screen.dart';
+import 'package:auto_reviewer/screens/statistic_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -9,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 List<DynamicTabContent> myList = new List();
+List<DynamicPage> myListDynamicPage = new List();
 
   TabController _cardController;
 
@@ -50,6 +51,7 @@ List<DynamicTabContent> myList = new List();
                 onPressed: () {
                   if(_cardController.length == 1){
                    List<DynamicTabContent> tempList = new List();
+                   List<DynamicPage> listPage = new List();
 
                   myList.forEach((dynamicContent) {
                     tempList.add(dynamicContent);
@@ -101,7 +103,7 @@ List<DynamicTabContent> myList = new List();
                 onTap: (){
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      // builder: (BuildContext context) => StatisticScreen()
+                       builder: (BuildContext context) => StatisticScreen()
                     )
                   );
                 }
@@ -137,4 +139,41 @@ class DynamicTabContent {
   String tooTip;
 
   DynamicTabContent(this.icon, this.tooTip);
+}
+
+class DynamicPage {
+  ListViewWithAllSeparators list = ListViewWithAllSeparators();
+  
+  DynamicPage (this.list);
+}
+
+
+class ListViewWithAllSeparators<T> extends StatelessWidget {
+  const ListViewWithAllSeparators({Key key, this.items, this.itemBuilder}) : super(key: key);
+  final List<T> items;
+  final Widget Function(BuildContext context, T item) itemBuilder;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemCount: items.length + 2,
+      separatorBuilder: (_, __) => Divider(height: 0.5),
+      itemBuilder: (context, index) {
+        if (index == 0 || index == items.length + 1) {
+          return Container(); // zero height: not visible
+        }
+        return itemBuilder(context, items[index - 1]);
+      },
+    );
+  }
+}
+
+class DataRow extends OverflowBox{
+  
+  Container _container;
+
+  DataRow(this._container);
+
+
+
 }
